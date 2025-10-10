@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: 开始阅读
-      link: /markdown-examples
+      link: /overview
     - theme: alt
       text: 源码仓库
       link: https://github.com/chenachen/vue-core-analysis
