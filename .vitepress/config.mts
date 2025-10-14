@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -25,9 +26,8 @@ export default defineConfig({
           { text: '从Demo开始', link: '/reactivity/demo' },
           { text: 'Reactive', link: '/reactivity/reactive' },
           { text: 'Ref', link: '/reactivity/ref' },
+          { text: 'Effect&Dep', link: '/reactivity/effectAndDep' },
           { text: 'Computed', link: '/reactivity/computed' },
-          { text: 'Effect', link: '/reactivity/effect' },
-          { text: 'Dep', link: '/reactivity/dep' },
           { text: 'Watch', link: '/reactivity/watch' },
           { text: 'EffectScope', link: '/reactivity/effectScope' },
         ]
