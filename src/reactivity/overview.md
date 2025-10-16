@@ -1,8 +1,9 @@
-#  Reactivity 总览
+# Reactivity 总览
 
 `reactivity` 是 Vue 3 的核心之一，它支撑了整个组件更新机制，是运行时高效更新视图的基础。  
 这一层可以理解为 Vue 的「灵魂」，它通过精确的依赖收集与触发机制，实现了极高的性能与灵活性。  
-与 Vue 2 相比，这部分实现发生了本质变化，从 `Object.defineProperty` 切换到 `Proxy`，不仅能力更强、维护更简洁，也让 Vue 拥有了更好的可扩展性。
+与 Vue 2 相比，这部分实现发生了本质变化，从 `Object.defineProperty` 切换到 `Proxy`，不仅能力更强、维护更简洁，也让 Vue
+拥有了更好的可扩展性。
 
 ## 📦 目录结构总览
 

@@ -368,6 +368,7 @@ class MutableReactiveHandler extends BaseReactiveHandler {
 这里主要是处理一些特殊情况，比如浅层监听、只读对象、ref对象等。
 
 重点是这里
+
 ```ts
 if (!isArray(target) && isRef(oldValue) && !isRef(value)) {
     if (isOldValueReadonly) {
@@ -380,9 +381,10 @@ if (!isArray(target) && isRef(oldValue) && !isRef(value)) {
 ```
 
 这里是对ref对象的特殊处理，如果旧值是ref对象，并且新值不是ref对象，则直接修改旧值的value属性，而不是替换整个ref对象。对应的例子如下：
+
 ```ts
 const r = ref(1)
-const obj = reactive({ r })
+const obj = reactive({r})
 obj.r = 2
 console.log(r.value) // 2
 ```
@@ -393,20 +395,21 @@ console.log(r.value) // 2
 
 ```ts
 if (target === toRaw(receiver)) {
-  if (!hadKey) {
-    trigger(target, TriggerOpTypes.ADD, key, value)
-  } else if (hasChanged(value, oldValue)) {
-    trigger(target, TriggerOpTypes.SET, key, value, oldValue)
-  }
+    if (!hadKey) {
+        trigger(target, TriggerOpTypes.ADD, key, value)
+    } else if (hasChanged(value, oldValue)) {
+        trigger(target, TriggerOpTypes.SET, key, value, oldValue)
+    }
 }
 ```
+
 这里主要是触发依赖更新，只有当`target`和`receiver`的原始对象相等时，才会触发依赖更新。处理的场景在这个测试用例中：
 `packages/reactivity/__tests__/reactive.spec.ts`
 
 `mutation on objects using reactive as prototype should not trigger`
 
 ```ts
-const observed = reactive({ foo: 1 })
+const observed = reactive({foo: 1})
 const original = Object.create(observed)
 let dummy
 effect(() => (dummy = original.foo))
@@ -421,9 +424,11 @@ expect(dummy).toBe(2)
 
 至此，我们已经看完了`reactive`函数的实现。其他如`delete`、`has`、`ownKeys`等操作的实现和`get`、`set`类似，这里就不再赘述。
 
-其他类型的数据比如数组，主要是根据每个数组方法的不同，去对数据数据是否需要深层监听、依赖收集等做不同的处理，感兴趣的可以去看看`packages/reactivity/src/arrayInstrumentations.ts`。
+其他类型的数据比如数组，主要是根据每个数组方法的不同，去对数据数据是否需要深层监听、依赖收集等做不同的处理，感兴趣的可以去看看
+`packages/reactivity/src/arrayInstrumentations.ts`。
 
-而`collectionHandlers`主要是对`Map`、`Set`等集合类型的数据做处理，和`baseHandlers`类似，原理都一样的，这里也不再赘述。如果你读懂了`baseHandlers`，那么`collectionHandlers`作为自己的练习题，应该不难读懂。
+而`collectionHandlers`主要是对`Map`、`Set`等集合类型的数据做处理，和`baseHandlers`类似，原理都一样的，这里也不再赘述。如果你读懂了
+`baseHandlers`，那么`collectionHandlers`作为自己的练习题，应该不难读懂。
 
 最后，我们来解释一下上面提到的那个问题：
 
@@ -530,4 +535,5 @@ export function refreshComputed(computed: ComputedRefImpl): undefined {
 所以rC.value永远是undefined，这个测试用例就会报错
 
 ## 总结
+
 到这里，我们已经看完了`reactive`函数的实现。下一节，我们将继续`ref`函数的实现解释。

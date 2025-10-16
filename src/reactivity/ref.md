@@ -13,7 +13,8 @@ export function ref(value?: unknown) {
 }
 ```
 
-这个函数调用了`createRef`函数，做这个封装的原因和`reactive`相似，`ref`也有 `shadownRef`这个变体，我们继续看下`createRef`函数的实现
+这个函数调用了`createRef`函数，做这个封装的原因和`reactive`相似，`ref`也有 `shadownRef`这个变体，我们继续看下`createRef`
+函数的实现
 
 ```ts
 function createRef(rawValue: unknown, shallow: boolean) {
@@ -114,6 +115,7 @@ export const toReactive = <T extends unknown>(value: T): T =>
 接下来我们看看`getter`和`setter`：
 
 - `getter`：当访问`value`属性时，会进行依赖收集，调用`dep.track()`方法，然后返回响应式的值`_value`
+
 ```ts
 // 依赖收集
 if (__DEV__) {
@@ -127,8 +129,11 @@ if (__DEV__) {
 }
 return this._value
 ```
-- `setter`：当设置`value`属性时，会先保存旧值，然后判断新值是否需要直接使用（浅监听或只读），如果需要则直接赋值，否则使用`toRaw`获取原始值。
+
+- `setter`：当设置`value`属性时，会先保存旧值，然后判断新值是否需要直接使用（浅监听或只读），如果需要则直接赋值，否则使用
+  `toRaw`获取原始值。
   接着比较新旧值是否变化，如果变化则更新`_rawValue`和`_value`，并触发依赖更新，调用`dep.trigger()`方法
+
 ```ts
 const oldValue = this._rawValue
 
@@ -159,10 +164,13 @@ if (hasChanged(newValue, oldValue)) {
 ```
 
 ## 总结
+
 `ref`的处理相对来说比较简单，主要是通过类的`getter`和`setter`来实现对单个属性的响应式处理。
-它和`reactive`的核心思想是一样的，都是通过依赖收集和触发更新来实现响应式。对于入参是对象的情况，`ref`会使用`reactive`进行深度监听，从而实现对对象属性的响应式处理。
+它和`reactive`的核心思想是一样的，都是通过依赖收集和触发更新来实现响应式。对于入参是对象的情况，`ref`会使用`reactive`
+进行深度监听，从而实现对对象属性的响应式处理。
 
 本文件还有其他方法例如
+
 - `triggerRef`：主动触发传入的`ref`包含的依赖
 - `customRef`：自定义`ref`的依赖收集和触发逻辑
 - `toValue`、`proxyRefs`等等，感兴趣的同学可以自行查看源码。
