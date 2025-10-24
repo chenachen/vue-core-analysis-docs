@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress'
-import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -37,89 +36,16 @@ export default defineConfig({
         items: [
           { text: '总览', link: '/runtime/overview' },
           {
-            text: '从createApp开始',
+            text: '执行流程',
             items: [
-              {
-                text: '总览',
-                link: '/runtime/entry/overview'
-              },
-              { text: 'CreateApp', link: '/runtime/entry/createApp' },
-              { text: '组件挂载', link: '/runtime/entry/mount' }
+              { text: 'createApp', link: '/runtime/createApp' },
+              { text: '渲染器', link: '/runtime/baseCreateRenderer' },
+              { text: '创建虚拟节点', link: '/runtime/createVNode' },
+              { text: 'Diff算法', link: '/runtime/diff' },
+              { text: '组件实例', link: '/runtime/componentInstance' },
+              { text: '生命周期', link: '/runtime/lifecycle' },
             ]
           },
-          {
-            text: 'VNode 与组件实例',
-            items: [
-              {
-                text: '总览',
-                link: '/runtime/component/overview'
-              },
-              {
-                text: '虚拟DOM',
-                link: '/runtime/component/vNode'
-              },
-              {
-                text: '组件实例',
-                link: '/runtime/component/component'
-              },
-            ]
-          },
-          {
-            text: 'Diff算法',
-            items: [
-              {
-                text: '总览',
-                link: '/runtime/diff/overview'
-              },
-              {
-                text: 'Patch',
-                link: '/runtime/diff/patch'
-              },
-              {
-                text: '核心Diff算法',
-                link: '/runtime/diff/algorithm'
-              }
-            ]
-          },
-          {
-            text: '调度与更新',
-            items: [
-              {
-                text: '总览',
-                link: '/runtime/scheduler/overview'
-              },
-              {
-                text: '调度器',
-                link: '/runtime/scheduler/scheduler'
-              }
-            ]
-          },
-          {
-            text: '生命周期',
-            items: [
-              {
-                text: '总览',
-                link: '/runtime/lifecycle/overview'
-              },
-              {
-                text: '生命周期实现',
-                link: '/runtime/lifecycle/lifecycle'
-              }
-            ]
-          },
-          {
-            text: '自定义渲染器',
-            items: [
-              {
-                text: '总览',
-                link: '/runtime/renderer/overview'
-              },
-              {
-                text: '自定义渲染器实现',
-                link: '/runtime/renderer/renderer'
-              }
-            ]
-          }
         ]
       },
       {
