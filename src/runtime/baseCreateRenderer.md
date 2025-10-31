@@ -137,6 +137,21 @@ export const nodeOps: Omit<RendererOptions<Node, Element>, 'patchProp'> = {
 
 **正是通过这种方式，Vue3实现了一个高度可定制化的渲染器，使得它能够轻松地适应不同的平台需求。**
 
+## `baseCreateRenderer`包含的方法
+
+在`baseCreateRenderer`函数中，定义了超过30个函数方法，这些方法共同构成了渲染器的功能模块。这些函数之间调用关系可能有点复杂，[调用关系可以看下这里。](https://mdgqaylvhg.feishu.cn/docx/QyMQdFq46ox79pxawMGcReCVnnh?openbrd=1&doc_app_id=501&blockId=XosYdiTFzoaUnWx0yvjcQSianjg&blockType=whiteboard&blockToken=TZ6wwd422h5uh3bQjEIcKdkInSd#XosYdiTFzoaUnWx0yvjcQSianjg)
+
+当然这可能还是显得有点复杂。那么我们先来捋一下，这些方法大致可以分为以下几类：
+
+- `render`方法：渲染器方法，也就是`baseCreateRenderer`需要返回的核心方法，用于将虚拟Dom渲染到真实Dom容器上。
+- `createApp`方法：创建应用实例的方法, 返回给外部调用。
+- `hydrate`方法：用于服务器端渲染的水合过程， 返回给外部调用。
+- `patch`开头的方法：负责比较和更新虚拟DOM节点，除了传给创建水合函数使用外只在内部调用。
+- `mount`开头的方法：负责将虚拟DOM节点挂载到真实DOM上，除了传给创建水合函数使用外只在内部调用。
+- `unmount`开头的方法：负责卸载虚拟DOM节点，除了传给创建水合函数使用外只在内部调用。
+- `process`开头的方法：负责处理不同类型的虚拟DOM节点（如组件节点、元素节点等），除了传给创建水合函数使用外只在内部调用。
+- 其他辅助方法：如`remove`、`move`等，用于操作真实或虚拟DOM，除了传给创建水合函数使用外只在内部调用。
+
 ## `render`方法
 
 `createApp`已经在上文中提到过，`hydrate`和服务器渲染相关，这里不再赘述。我们重点来看一下渲染器中的另一个重要方法——`render`。
